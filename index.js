@@ -216,6 +216,7 @@ function openMail(mailIndex) {
     const message = document.querySelector('.mail-message');
     const file = document.querySelector('.mail-file');
     btnResponse.setAttribute('data-id', mailIndex)
+    document.querySelector('.smail-send-response').setAttribute('data-id', mailIndex)
 
     const mailDropdown = document.querySelectorAll('.dropdown');
     
@@ -676,7 +677,6 @@ function tasks() {
     const mailAna = document.querySelector('[data-tab="smail-input"] .smail-mail[data-mail="1"]')
     const buttonResponseAna = document.querySelector('.smail-btn.smail-response[data-id="1"]')
     const messageAna = document.querySelector('.smail-mail-content.smail-mail-content--active[id="1"] textarea')
-    const sendAna = document.querySelector('.smail-mail-content[id="1"] .smail-btn.smail-send.smail-send-response')
     
     if (!mailAna.classList.contains('smail-mail--no-read')) {
         taskTwoOne.classList.add('smail-bold');
@@ -691,13 +691,11 @@ function tasks() {
             taskTwoThree.classList.add('smail-bold');
         }
     }
-    if (sendAna) {
-        if (!sendAna.classList.contains('smail-send-response--active')) {
-            taskTwoFour.classList.add('smail-bold');
-            taskTwoFive.classList.add('smail-bold');
+    if (RESPONSES.filter(function(x) { return x.parent == 1 }).length > 0) {
+        taskTwoFour.classList.add('smail-bold');
+        taskTwoFive.classList.add('smail-bold');
 
-            taskTwo.classList.add('smail-task--active')
-        }
+        taskTwo.classList.add('smail-task--active')
     }
     
 

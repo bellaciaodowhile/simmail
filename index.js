@@ -634,4 +634,105 @@ btnSendResponse.onclick = function(e) {
     }
 }
 
+// Process tasks
+// Tasks
+const taskOne = document.querySelector('[data-task="1"]');
+const taskOneOne = document.querySelector('.task-1-1');
+const taskOneTwo = document.querySelector('.task-1-2');
 
+const taskTwo = document.querySelector('[data-task="2"]');
+const taskTwoOne = document.querySelector('.task-2-1');
+const taskTwoTwo = document.querySelector('.task-2-2');
+const taskTwoThree = document.querySelector('.task-2-3');
+const taskTwoFour = document.querySelector('.task-2-4');
+const taskTwoFive = document.querySelector('.task-2-5');
+
+const taskThree = document.querySelector('[data-task="3"]');
+const taskThreeOne = document.querySelector('.task-3-1');
+const taskThreeTwo = document.querySelector('.task-3-2');
+const taskThreeThree = document.querySelector('.task-3-3');
+const taskThreeFour = document.querySelector('.task-3-4');
+const taskThreeFive = document.querySelector('.task-3-5');
+const taskThreeSix = document.querySelector('.task-3-6');
+const taskThreeSeven = document.querySelector('.task-3-7');
+const taskThreeEight = document.querySelector('.task-3-8');
+const taskThreeNine = document.querySelector('.task-3-9');
+const taskThreeZero = document.querySelector('.task-3-0');
+
+window.addEventListener('mousemove', function(e) {
+    // Task One
+    e.stopPropagation();
+    const mailsNoRead = document.querySelectorAll('[data-tab="smail-input"] .smail-mail--no-read');
+
+    if (mailsNoRead.length == 0) {
+        taskOneOne.classList.add('smail-bold');
+    }
+    if (dataMails.filter(function(x) { return x.status == 'delete' }).length > 0) {
+        taskOneTwo.classList.add('smail-bold');
+        taskOne.classList.add('smail-task--active');
+    }
+
+    // Task Two
+    const mailAna = document.querySelector('[data-tab="smail-input"] .smail-mail[data-mail="1"]')
+    const buttonResponseAna = document.querySelector('.smail-btn.smail-response[data-id="1"]')
+    const messageAna = document.querySelector('.smail-mail-content.smail-mail-content--active[id="1"] textarea')
+    const sendAna = document.querySelector('.smail-mail-content[id="1"] .smail-btn.smail-send.smail-send-response')
+    
+    if (!mailAna.classList.contains('smail-mail--no-read')) {
+        taskTwoOne.classList.add('smail-bold');
+    }
+    if (buttonResponseAna) {
+        if (buttonResponseAna.classList.contains('smail-none')) {
+            taskTwoTwo.classList.add('smail-bold');
+        }
+    }
+    if (messageAna) {
+        if (messageAna.value != '') {
+            taskTwoThree.classList.add('smail-bold');
+        }
+    }
+    if (sendAna) {
+        if (!sendAna.classList.contains('smail-send-response--active')) {
+            taskTwoFour.classList.add('smail-bold');
+            taskTwoFive.classList.add('smail-bold');
+
+            taskTwo.classList.add('smail-task--active')
+        }
+    }
+    
+
+    // Task Three
+    const newMailClick = document.querySelector('.smail-main-new');
+    const fieldTo = document.querySelector('input[name="to"]');
+    const fieldTitle = document.querySelector('input[name="title"]');
+    const fieldMessage = document.querySelector('textarea[name="message"]');
+    const iconClip = document.querySelector('.smail-main-modal');
+    const attachCurrent = document.querySelector('.smail-archive div');
+
+    if (newMailClick.classList.contains('smail-main-new--active')) {
+        taskThreeOne.classList.add('smail-bold');
+    }
+    if (fieldTo.value != '' && fieldTo.value == 'hr@somecompany.com') {
+        taskThreeTwo.classList.add('smail-bold');
+        taskThreeThree.classList.add('smail-bold');
+    }
+    if (fieldTitle.value != '') {
+        taskThreeFour.classList.add('smail-bold');
+        taskThreeFive.classList.add('smail-bold');
+    }
+    if (fieldMessage.value != '') {
+        taskThreeSix.classList.add('smail-bold');
+        taskThreeSeven.classList.add('smail-bold');
+    }
+    if (iconClip.classList.contains('smail-main-modal--active')) {
+        taskThreeEight.classList.add('smail-bold');
+        taskThreeNine.classList.add('smail-bold');
+    }
+    if (attachCurrent) {
+        if (attachCurrent.children[0].textContent.trim() == 'CV.pdf') {
+            taskThreeZero.classList.add('smail-bold');
+            taskThree.classList.add('smail-task--active');
+        }
+    }
+
+});

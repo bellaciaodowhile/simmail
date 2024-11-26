@@ -5,8 +5,13 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
-li {
+.main-smail li {
     list-style: none;
+    margin-top: 5px;
+}
+.main-smail ol {
+    padding-left: 20px;
+    margin-top: 20px;
 }
 .main-smail h3 {
     font-size: 20px;
@@ -64,6 +69,7 @@ li {
 }
 .main-smail .smail-content {
     display: flex;
+    padding-bottom: 40px;
 }
 .main-smail .smail-content .smail-sidebar {
     padding: 20px;
@@ -71,9 +77,6 @@ li {
     flex-direction: column;
     width: 300px;
     border-right: 1px solid #00000028;
-}
-.main-smail .smail-content .smail-sidebar__menu {
-
 }
 .main-smail .smail-content .smail-sidebar__menu li:nth-child(1) {
     margin-top: 10px;
@@ -263,7 +266,7 @@ li {
 
 .main-smail .smail-main-new {
     display: none;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
@@ -328,7 +331,7 @@ li {
     display: none;
     align-items: center;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     z-index: 10;
     width: 100%;
     height: 100%;
@@ -383,4 +386,47 @@ li {
 }
 .main-smail a {
     color: #14C1ED;
+}
+.main-smail .smail-tasks {
+    background: #F0F0F0;
+    padding: 40px;
+}
+.main-smail .smail-task {
+    padding-bottom: 40px;
+}
+.main-smail .smail-task h3 * {
+    display: inline-flex;
+    font-size: 20px;
+    transition: all 300ms ease-in-out;
+}
+.main-smail .smail-task.smail-task--active h3 {
+    color: #008000;
+}
+.main-smail .smail-bold {
+    font-weight: bold;
+}
+.main-smail .smail-task.smail-task--active .smail-check {
+    background: #008000;
+}
+.main-smail .smail-task h3 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.main-smail .smail-task h3 span:nth-child(2) {
+    font-size: 12px;
+}
+.main-smail .smail-task__content {
+    margin-top: 20px;
+}
+.main-smail .smail-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    color: white;
 }

@@ -734,7 +734,6 @@ function tasks() {
             taskThree.classList.add('smail-task--active');
         }
     }
-console.log('message')
 }
 
 window.addEventListener('mousemove', tasks);

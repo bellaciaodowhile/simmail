@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smail</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+    <!-- Start simulator mail -->
+    <div class="main-smail">
+        <div class="smail-toast"></div>
+        
+        <div class="smail-main-modal">
+            <div class="smail-modal">
+                <center>Elige un archivo adjunto:</center>
+                <div class="smail-attachs"">
+                    <div class="smail-attachs-item">
+                        <img src="./icons/pdf.png" width="17px">
+                        <span>CV.pdf</span>
+                    </div>
+                    <div class="smail-attachs-item">
+                        <img src="./icons/image.png" width="17px">
+                        <span>Lenna.jpg</span>
+                    </div>
+                </div>
+                <div class="smail-modal-footer">
+                    <button class="smail-btn smail-close-modal">
+                        Cancelar
+                    </button>
+                    <button class="smail-btn smail-open">
+                        Abrir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="smail-main-new">
+            <div class="smail-new-header">
+                <span>Nuevo correo</span>
+                <span class="close-window">x</span>
+            </div>
+            <div class="smail-new-content">
+                <div class="smail-box-inputs">
+                    <div class="smail-from">
+                        <span>Para:</span>
+                        <span>CC:</span>
+                        <span>CCO:</span>
+                        <span>Asunto:</span>
+                    </div>
+                    <div class="smail-inputs">
+                        <input type="text" name="to">
+                        <input type="text" name="cc">
+                        <input type="text" name="cco">
+                        <input type="text" name="title">
+                    </div>
+                </div>
+                <textarea name="message" rows="10"></textarea>
+                <div class="smail-new-footer">
+                    <button class="smail-btn smail-send smail-mt-0">
+                        Enviar
+                    </button>
+                    <img src="./icons/clip.png" class="upload-attach" width="20px">
+                    <div class="smail-archive"></div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="smail-title">EmailPal 2023</div>
+        <div class="smail-tabs">
+            <div class="smail-tab">Archivo</div>
+            <div class="smail-tab smail-tab--active">Herramientas principales</div>
+            <div class="smail-tab">Envío/Recepción</div>
+        </div>
+        <div class="smail-options">
+            <div class="smail-option smail-option--new">
+                <img src="./icons/icono_nuevo_correo.svg">
+                <span>Nuevo correo</span>
+            </div>
+            <div class="smail-option smail-option--back">
+                <img src="./icons/icono_flecha_atras.svg">
+                <span>Atrás</span>
+            </div>
+            <div class="smail-option smail-option--delete">
+                <img src="./icons/icono_eliminar_correo.svg">
+                <span>Eliminar correo</span>
+            </div>
+            <div class="smail-option smail-option--archived">
+                <img src="./icons/icono_archivar_correo.svg">
+                <span>Archivar</span>
+            </div>
+            <div class="smail-option smail-option--trash">
+                <img src="./icons/icono_mover_a_correo_basura.svg">
+                <span>Mover a correo basura</span>
+            </div>
+            <div class="smail-option smail-option--no-read">
+                <img src="./icons/icono_marcar_leido.svg">
+                <span>Marcar como no leído</span>
+            </div>
+            <div class="smail-option smail-option--marked">
+                <img src="./icons/icono_marcar.svg">
+                <span>Marcar</span>
+            </div>
+        </div>
+        <div class="smail-content">
+            <div class="smail-sidebar">
+                <small><strong>user@email.com</strong></small>
+                <ul class="smail-sidebar__menu">
+                    <li class="smail-sidebar__menu--active" data-tab="smail-input">
+                        <span>Bandeja de entrada</span>
+                        <span>3</span>
+                    </li>
+                    <li>
+                        <span>Borradores</span>
+                        <span>[1]</span>
+                    </li>
+                    <li data-tab="smail-send">
+                        <span>Enviados</span>
+                        <span></span>
+                    </li>
+                    <li data-tab="smail-trash">
+                        <span>Papelera</span>
+                        <span></span>
+                    </li>
+                    <li data-tab="smail-mail-trash">
+                        <span>Correo basura</span>
+                        <span></span>
+                    </li>
+                    <li data-tab="smail-archived">
+                        <span>Archivo</span>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="smail-box">
+               
+                <div class="smail-mail-content">
+                    <div class="smail-mail-only">
+                        <h3 class="mail-title">Allegro</h3>
+                        <strong class="mail-user">allegro@mail.com</strong>
+                        <div class="smail-flex">
+                            <div class="mail-date">May 06, 2023</div>
+                            <div class="dropdown">
+                                <span class="mail-time">21:37</span> <span class="smail-vert"></span>
+                                <div class="dropdown-content" data-delete="">
+                                    Eliminar
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mail-message"></div>
+                        <div class="mail-file"></div>
+                    </div>
+
+                    <div class="smail-responses"></div>
+
+                    <textarea name="message-response" rows="4" class="message-response"></textarea>
+                    <button class="smail-btn smail-response">
+                        Responder
+                    </button>
+                    <button class="smail-btn smail-send smail-send-response" data-id>
+                        Enviar
+                    </button>
+                </div>
+
+               <div class="smail-boxs">
+                    <div class="smail-mails smail-mails--active" data-tab="smail-input"></div>
+                    <div class="smail-mails" data-tab="smail-trash"></div>
+                    <div class="smail-mails" data-tab="smail-send"></div>
+                    <div class="smail-mails" data-tab="smail-mail-trash"></div>
+                    <div class="smail-mails" data-tab="smail-archived"></div>
+               </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- End simulator mail -->
+
+
+    <script src="./index.js"></script>
+</body>
+</html>

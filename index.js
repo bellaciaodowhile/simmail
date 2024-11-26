@@ -659,9 +659,9 @@ const taskThreeEight = document.querySelector('.task-3-8');
 const taskThreeNine = document.querySelector('.task-3-9');
 const taskThreeZero = document.querySelector('.task-3-0');
 
-window.addEventListener('mousemove', function(e) {
-    // Task One
-    e.stopPropagation();
+function tasks() {
+    
+    // Tasks One
     const mailsNoRead = document.querySelectorAll('[data-tab="smail-input"] .smail-mail--no-read');
 
     if (mailsNoRead.length == 0) {
@@ -735,4 +735,7 @@ window.addEventListener('mousemove', function(e) {
         }
     }
 
-});
+}
+
+window.addEventListener('mousemove', tasks());
+window.addEventListener('touchmove', tasks());

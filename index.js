@@ -502,7 +502,11 @@ sendMail.onclick = function(e) {
         responses: []
     }
 
-    to = '';attach = '';message = '';cc = '';cco = '';
+    document.querySelector('input[name="to"]').value = '';
+    document.querySelector('input[name="cc"]').value = '';
+    document.querySelector('input[name="cco"]').value = '';
+    document.querySelector('input[name="title"]').value = '';
+    document.querySelector('textarea[name="message"]').value = '';
 
     console.log(newMail)
 

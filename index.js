@@ -33,7 +33,18 @@ const dataMails = [
         file: '',
         status: 'input',
         responses: []
-    }
+    },
+    {
+        id: 3,
+        title: 'Pendiente',
+        user: 'sender@mail.com',
+        date: 'May 06, 2023',
+        time: '21:35',
+        message: `Lorem Ipsum...`,
+        file: '',
+        status: 'draft',
+        responses: []
+    },
 ];
 
 const RESPONSES = [];
@@ -96,20 +107,32 @@ const contentWindow = document.querySelector('.smail-main-new');
 const closeWindow = document.querySelector('.close-window');
 const iconNewmessage = document.querySelector('.smail-option--new');
 
+// Clean trash
+const iconCleanTrash = document.querySelector('.smail-option.smail-option--draft')
+
 const menuTabs = document.querySelectorAll('.smail-sidebar__menu li');
 const menuSmails = document.querySelectorAll('.smail-mails');
 
 // Data general
 function viewData(data, section, isBack = true) {
     const mailBoxInput = document.querySelector(`.smail-mails[data-tab="smail-${ section }"]`)
-    mailBoxInput.innerHTML = '';
+    
+    if (mailBoxInput.children[0]) {
+        if (!mailBoxInput.children[0].classList.contains('smail-mail')) {
+            mailBoxInput.innerHTML = '';
+        }
+    }
 
     back(`smail-${ section }`, isBack);
 
     let notRead = '';
+    const isData = data.filter(function(x) { return x.status == section })
+    console.log(section)
+    console.log(isData)
+
     if (section == 'send' || section == 'input') notRead = 'smail-mail--no-read'
-    if (data.length > 0) {
-        data.forEach(function(mail) {
+    if (isData.length > 0) {
+        isData.forEach(function(mail) {
             mailBoxInput.innerHTML += `
             <div class="smail-mail ${ notRead }" data-mail="${ mail.id }">
                 <div class="smail-flex">
@@ -150,6 +173,8 @@ function viewData(data, section, isBack = true) {
     
 }
 viewData(dataMails, 'input');
+const drafts = dataMails.filter(function(x) { return x.status == 'draft' })
+viewData(drafts, 'draft', false)
 
 // Attachs
 allAttachsItem.forEach(function(item) {
@@ -169,17 +194,24 @@ menuTabs.forEach(function(li) {
             e.preventDefault();
 
             // All list mails
-            // mailMessage.classList.remove('smail-mail-content--active');
             mailsBox.classList.remove('smail-none')
 
             const dataTab = li.attributes['data-tab'].textContent;
             menuTabs.forEach(function(x) {  x.classList.remove('smail-sidebar__menu--active') })
 
-            // console.log(li.attributes['data-tab'].textContent)
+            if (dataTab == 'smail-mail-trash') {
+                if (dataMails.filter(function(x) { return x.status == 'mail-trash' }).length > 0) {
+                    const optionDraft = document.querySelector('.smail-option--draft');
+                    optionDraft.classList.add('smail-option--active');
+                }
+            }
+
             mailMessage.classList.remove('smail-mail-content--active');
             options.forEach(function(option) {
                 if (option.classList.contains('smail-option--active')) {
-                    option.classList.remove('smail-option--active');
+                    if (dataTab != 'smail-mail-trash') {
+                        option.classList.remove('smail-option--active');
+                    }
                 }
             });
             menuSmails.forEach(function(smail) {
@@ -190,6 +222,7 @@ menuTabs.forEach(function(li) {
                     smail.classList.remove('smail-mails--active');
                 }
             });
+
         }
     }
 });
@@ -201,7 +234,9 @@ function openMail(mailIndex) {
     console.log(`Estas abriendo el correo: ${ mailIndex }`)
     options.forEach(function(option) {
         if (!option.classList.contains('smail-option--active')) {
-            option.classList.add('smail-option--active');
+            if (!option.classList.contains('smail-option--draft')) {
+                option.classList.add('smail-option--active');
+            }
         }
     });
     mailsBox.classList.add('smail-none');
@@ -309,7 +344,6 @@ function deleteMail(mailIndex) {
     const newData = data.filter(function(x) { return x.status == 'delete' })
     viewData(newData, 'trash')
     console.log(newData)
-    // countAllMails();
 }
 
 // Archived mail
@@ -318,17 +352,12 @@ function archivedMail(mailIndex) {
     const mailCurrent = document.querySelector(`[data-mail="${ mailIndex }"]`);
     mailCurrent.remove();
 
-    // const data = dataMails.filter(function(x) { return x.id == mailIndex })
-    // dataMailsArchived.push(data[0]);
-    // countAllMails();
-    // viewDataArchived();
     const data = dataMails.filter(function(x) { return x.id == mailIndex })
     data[0].status = 'archived';
 
     const newData = data.filter(function(x) { return x.status == 'archived' })
     viewData(newData, 'archived')
     console.log(newData)
-    // countAllMails();
 } 
 
 // Trash mail
@@ -337,18 +366,12 @@ function trashMail(mailIndex) {
     const mailCurrent = document.querySelector(`[data-mail="${ mailIndex }"]`);
     mailCurrent.remove();
 
-
-    // const data = dataMails.filter(function(x) { return x.id == mailIndex })
-    // dataMailsTrash.push(data[0]);
-    // countAllMails();
-    // viewDataTrash();
     const data = dataMails.filter(function(x) { return x.id == mailIndex })
     data[0].status = 'mail-trash';
 
     const newData = data.filter(function(x) { return x.status == 'mail-trash' })
     viewData(newData, 'mail-trash')
     console.log(newData)
-    // countAllMails();
 } 
 
 // Trash mail
@@ -493,15 +516,34 @@ sendMail.onclick = function(e) {
     }, 4000);
 
     dataMails.push(newMail);
+
     const newData = dataMails.filter(function(x) { return x.status == 'send' })
     viewData(newData, 'send')
-    console.log(newData)
-    // countAllMails();
 
-    // dataMailsSend.push(newMail);
-    // viewDataSends();
+    console.log(newData)
 
 }
+
+// Clean trash
+iconCleanTrash.onclick = function(e) {
+    e.preventDefault();
+    const countMailsTrash = document.querySelector('.smail-sidebar__menu [data-tab="smail-mail-trash"]').children[1];
+
+    dataMails.filter(function(x) { return x.status == 'mail-trash' })
+    dataMails.forEach(function(item){
+        item.status = 'none';
+    });
+
+    viewData(dataMails, 'mail-trash', false);
+    countMailsTrash.innerHTML = '';
+
+    smailToast.textContent = 'Has eliminado todo el correo basura';
+    smailToast.classList.add('smail-toast--active');
+    setTimeout(() => {
+        smailToast.classList.remove('smail-toast--active');
+    }, 4000);
+}
+
 function dropdowns() {
     const mailDropdown = document.querySelectorAll('.dropdown');
     
@@ -546,6 +588,10 @@ function back(dataTab, isBack = true) {
             });
             menuTabs.forEach(function(x) {  x.classList.remove('smail-sidebar__menu--active') })
             document.querySelector(`.smail-sidebar__menu [data-tab="${ dataTab }"]`).classList.add('smail-sidebar__menu--active');
+            if (dataTab == 'smail-mail-trash') {
+                const optionDraft = document.querySelector('.smail-option--draft');
+                optionDraft.classList.add('smail-option--active');
+            }
         }
     }
 

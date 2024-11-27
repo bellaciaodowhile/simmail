@@ -133,6 +133,10 @@
                 <img src="./icons/icono_nuevo_correo.svg">
                 <span>Nuevo correo</span>
             </div>
+            <div class="smail-option smail-option--draft">
+                <img src="./icons/icono_vaciar_correo_basura.svg">
+                <span>Vaciar correo basura</span>
+            </div>
             <div class="smail-option smail-option--back">
                 <img src="./icons/icono_flecha_atras.svg">
                 <span>Atrás</span>
@@ -166,7 +170,7 @@
                         <span>Bandeja de entrada</span>
                         <span>3</span>
                     </li>
-                    <li>
+                    <li data-tab="smail-draft">
                         <span>Borradores</span>
                         <span>[1]</span>
                     </li>
@@ -222,6 +226,7 @@
                <div class="smail-boxs">
                     <div class="smail-mails smail-mails--active" data-tab="smail-input"></div>
                     <div class="smail-mails" data-tab="smail-trash"></div>
+                    <div class="smail-mails" data-tab="smail-draft"></div>
                     <div class="smail-mails" data-tab="smail-send"></div>
                     <div class="smail-mails" data-tab="smail-mail-trash"></div>
                     <div class="smail-mails" data-tab="smail-archived"></div>

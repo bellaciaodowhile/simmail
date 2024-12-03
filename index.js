@@ -126,6 +126,7 @@ function viewData(data, section, isBack = true) {
     back(`smail-${ section }`, isBack);
 
     let notRead = '';
+    if (section == 'trash') section = 'delete';
     const isData = data.filter(function(x) { return x.status == section })
     console.log(section)
     console.log(isData)
@@ -198,7 +199,7 @@ menuTabs.forEach(function(li) {
 
             const dataTab = li.attributes['data-tab'].textContent;
             menuTabs.forEach(function(x) {  x.classList.remove('smail-sidebar__menu--active') })
-
+            console.log(dataTab)
             if (dataTab == 'smail-mail-trash') {
                 if (dataMails.filter(function(x) { return x.status == 'mail-trash' }).length > 0) {
                     const optionDraft = document.querySelector('.smail-option--draft');
@@ -266,6 +267,8 @@ function openMail(mailIndex) {
     time.textContent = dataMails[mailIndex].time
     message.innerHTML = dataMails[mailIndex].message.replace(/\n/g, '<br>');
     file.innerHTML = dataMails[mailIndex].file
+
+    viewResponses(mailIndex)
 
     countAllMails();
 }
@@ -339,6 +342,12 @@ function deleteMail(mailIndex) {
     mailCurrent.remove();
 
     const data = dataMails.filter(function(x) { return x.id == mailIndex })
+
+    if (data[0].status == 'draft'){
+        const counterDraft = document.querySelector('.smail-sidebar [data-tab="smail-draft"]').children[1];
+        counterDraft.textContent = '';
+    }
+
     data[0].status = 'delete';
 
     const newData = data.filter(function(x) { return x.status == 'delete' })
@@ -647,23 +656,7 @@ btnSendResponse.onclick = function(e) {
 
         countAllMails();
 
-        const smailResponses = document.querySelector('.smail-responses');
-
-        smailResponses.innerHTML += `
-        <div class="smail-mail-only smail-mt">
-            <strong class="mail-user">${ data.user }</strong>
-            <div class="smail-flex">
-                <div class="mail-date">${ data.date }</div>
-                <div class="dropdown">
-                    <span class="mail-time">${ data.time }</span> <span class="smail-vert"></span>
-                    <div class="dropdown-content" data-delete="${ data.id}">
-                        Eliminar
-                    </div>
-                </div>
-            </div>
-            <div class="mail-message">${ data.message }</div>
-            <div class="mail-file"></div>
-        </div>`;
+        viewResponses(idMail);
 
         dropdowns();
 
@@ -683,6 +676,38 @@ btnSendResponse.onclick = function(e) {
         btnResponse.classList.remove('smail-none');
         this.classList.remove('smail-send-response--active');
     }
+}
+
+function viewResponses(idMail) {
+
+    console.log('Ver las repuestas del correo: ' + idMail)
+    const dataResponses = RESPONSES.filter(function(res) { return res.parent == idMail })
+    console.log('%cTodas las respuestas', 'color: red; padding: 10px; background: blue;')
+    console.log(RESPONSES)
+    console.log(`%cRespuestas del correo: ${idMail}`, 'color: red; padding: 10px; background: blue;')
+    console.log(dataResponses)
+
+    const smailResponses = document.querySelector('.smail-responses');
+    smailResponses.innerHTML = '';
+    dataResponses.forEach(function(response) {
+        const data = response.data;
+   
+        smailResponses.innerHTML += `
+        <div class="smail-mail-only smail-mt">
+            <strong class="mail-user">${ data.user }</strong>
+            <div class="smail-flex">
+                <div class="mail-date">${ data.date }</div>
+                <div class="dropdown">
+                    <span class="mail-time">${ data.time }</span> <span class="smail-vert"></span>
+                    <div class="dropdown-content" data-delete="${ data.id}">
+                        Eliminar
+                    </div>
+                </div>
+            </div>
+            <div class="mail-message">${ data.message }</div>
+            <div class="mail-file"></div>
+        </div>`;
+    });
 }
 
 // Process tasks
